@@ -133,6 +133,7 @@ function userPrompts() {
   ) {
     showError();
   }
+  masterArray();
   return passwordLength;
   return userLowerCase;
   return userUpperCase;
@@ -164,7 +165,7 @@ function randCharGenerator() {
 }
 
 function generatePassword() {
-  var tempPass = [];
+  var tempPassword = [];
   if (passwordLength > 7 && passwordLength < 129) {
     if (
       userLowerCase === false &&
@@ -176,9 +177,9 @@ function generatePassword() {
     } else {
       for (var i = 0; i < passwordLength; i++) {
         randCharGenerator();
-        tempPass.push(randMasterChar);
+        tempPassword.push(randMasterChar);
       }
-      password = tempPass.join("");
+      password = tempPassword.join("");
       checkPassword();
     }
   } else {
@@ -225,6 +226,5 @@ function showError() {
 generateBtn.addEventListener("click", function () {
   writePassword.value = " ";
   userPrompts();
-  masterArray();
   generatePassword();
 });
