@@ -56,7 +56,7 @@ var upperCaseChar = [
   "Z",
 ];
 
-var numChar = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+var numChar = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 var specialChar = [
   "!",
@@ -179,38 +179,10 @@ function generatePassword() {
         tempPass.push(randMasterChar);
       }
       password = tempPass.join("");
-      checkPassword();
+      showPassword();
     }
   } else {
     showError();
-  }
-}
-
-function checkPassword() {
-  var specialCaseTrue = true;
-  var numCaseTrue = true;
-  if (userSpecialCase === true) {
-    for (var j = 0; j < password.length; j++) {
-      specialCaseTrue = specialChar.includes(password[j]);
-      if (specialCaseTrue === true) {
-        break;
-      }
-    }
-  }
-
-  if (userNumCase === true) {
-    for (var j1 = 0; j1 < password.length; j1++) {
-      var numCaseTrue = numChar.includes(password[j1]);
-      if (numCaseTrue === true) {
-        break;
-      }
-    }
-  }
-
-  if (numCaseTrue === true && specialCaseTrue === true) {
-    showPassword();
-  } else {
-    generatePassword();
   }
 }
 
@@ -222,9 +194,24 @@ function showError() {
   writePassword.value = "Invalid Input. Hit Generate Password again";
 }
 
+// function checkPassword() {
+//   if (userSpecialCase) {
+//     for (var j = 0; j < password.length; j++) {
+//       var SpecialCaseTrue = specialChar.includes(password[j]);
+//       if (SpecialCaseTrue === false) {
+//         break;
+//       }
+//     }
+//     console.log(SpecialCaseTrue);
+//   }
+// }
+
+// generatePassword();
+
+// // Add event listener to generate button
 generateBtn.addEventListener("click", function () {
-  writePassword.value = " ";
   userPrompts();
   masterArray();
+  writePassword.value = " ";
   generatePassword();
 });
