@@ -1,17 +1,3 @@
-// // Assignment Code
-// var generateBtn = document.querySelector("#generate");
-
-// // Write password to the #password input
-// function writePassword() {
-//   var password = generatePassword();
-//   var passwordText = document.querySelector("#password");
-
-//   passwordText.value = password;
-// }
-
-// // Add event listener to generate button
-// generateBtn.addEventListener("click", writePassword);
-
 var lowerCaseChar = [
   "a",
   "b",
@@ -107,9 +93,6 @@ var specialChar = [
   "~",
 ];
 
-var allChar = lowerCaseChar.concat(upperCaseChar, numChar, specialChar);
-
-var password = [];
 var passwordLength;
 var userLowerCase;
 var userUpperCase;
@@ -117,9 +100,9 @@ var userNumCase;
 var userSpecialCase;
 var mastArray = [];
 var randMasterChar;
-var masterPassword = "";
-
-//Add event listener here :
+var password = "";
+var generateBtn = document.querySelector("#generate");
+var writePassword = document.querySelector("#password");
 
 function userPrompts() {
   var userLength = prompt(
@@ -149,7 +132,7 @@ function masterArray() {
   if (userLowerCase) {
     tempArray.push(lowerCaseChar);
   }
-  if (userLowerCase) {
+  if (userUpperCase) {
     tempArray.push(upperCaseChar);
   }
   if (userNumCase) {
@@ -167,19 +150,55 @@ function randCharGenerator() {
   return randMasterChar;
 }
 
+function showPassword() {
+  writePassword.value = password;
+}
+
+function showError() {
+  writePassword.value = "Invalid Input. Hit Generate Password again";
+}
+
 function generatePassword() {
   userPrompts();
   masterArray();
+  var tempPass = [];
   if (passwordLength > 7 && passwordLength < 129) {
-    for (var i = 0; i < passwordLength; i++) {
-      randCharGenerator();
-      password.push(randMasterChar);
+    if (
+      userLowerCase === false &&
+      userUpperCase === false &&
+      userNumCase === false &&
+      userSpecialCase === false
+    ) {
+      showError();
+    } else {
+      for (var i = 0; i < passwordLength; i++) {
+        randCharGenerator();
+        tempPass.push(randMasterChar);
+      }
+      password = tempPass.join("");
+      showPassword();
     }
-    masterPassword = password.join("");
-    console.log(masterPassword);
   } else {
-    console.log("Invalid Input");
+    showError();
   }
 }
 
-generatePassword();
+// function checkPassword() {
+//   if (userSpecialCase) {
+//     for (var j = 0; j < password.length; j++) {
+//       var SpecialCaseTrue = specialChar.includes(password[j]);
+//       if (SpecialCaseTrue === false) {
+//         break;
+//       }
+//     }
+//     console.log(SpecialCaseTrue);
+//   }
+// }
+
+// generatePassword();
+
+// // Add event listener to generate button
+generateBtn.addEventListener("click", function () {
+  writePassword.value = " ";
+  generatePassword();
+});
